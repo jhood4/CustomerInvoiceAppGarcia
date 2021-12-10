@@ -1,5 +1,6 @@
 ﻿using CustomerInvoiceApp.Data;
 using CustomerInvoiceApp.Models;
+using CustomerInvoiceApp.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -16,18 +17,12 @@ namespace CustomerInvoiceApp.Controllers
 
         public IActionResult Index()
         {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            IndexVM vm = new IndexVM
+            {
+                Customers = _context.Customers.ToList(),
+                Invoices = _context.Invoices.ToList()
+            };
+            return View(vm);
         }
     }
 }
