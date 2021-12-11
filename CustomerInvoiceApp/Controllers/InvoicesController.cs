@@ -30,6 +30,7 @@ namespace CustomerInvoiceApp.Controllers
         [HttpPost]
         public IActionResult Create(Invoice invoice)
         {
+            invoice.InvoiceDate = DateTime.Now;
             _context.Invoices.Add(invoice);
             _context.SaveChanges();
 
