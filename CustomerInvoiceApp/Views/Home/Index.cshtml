@@ -62,6 +62,9 @@
                                                     <td>@customer.Country</td>
                                                     <td>@customer.Email</td>
                                                     <td class="text-center">
+                                                        <a class="btn btn-sm btn-secondary" asp-controller="Customers" asp-action="GetCustomerAndInvoices" asp-route-id="@customer.Id">
+                                                            Invoices
+                                                        </a>
                                                         <a class="btn btn-sm btn-info" asp-controller="Customers" asp-action="Edit" asp-route-id="@customer.Id">
                                                             Edit
                                                         </a>

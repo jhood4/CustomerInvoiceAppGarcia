@@ -1,0 +1,39 @@
+﻿@model Customer
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h4 class="card-title mb-0">@Model.FirstName @Model.LastName</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Id: @Model.Id</li>
+                        <li class="list-group-item">Country: @Model.Country</li>
+                        <li class="list-group-item">Email: @Model.Email</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            @foreach(var invoice in Model.Invoices)
+            {
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">Invoice</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Id: @invoice.Id</li>
+                            <li class="list-group-item">Customer Id: @invoice.CustomerId</li>
+                            <li class="list-group-item">Amount: @invoice.Amount</li>
+                            <li class="list-group-item">Invoice Date: @invoice.InvoiceDate</li>
+                        </ul>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

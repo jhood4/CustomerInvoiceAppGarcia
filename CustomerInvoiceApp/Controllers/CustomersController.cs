@@ -1,6 +1,8 @@
 ﻿using CustomerInvoiceApp.Data;
 using CustomerInvoiceApp.Models;
+using CustomerInvoiceApp.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CustomerInvoiceApp.Controllers
 {
@@ -10,6 +12,12 @@ namespace CustomerInvoiceApp.Controllers
         public CustomersController(AppDbContext context)
         {
             _context = context;
+        }
+
+        public IActionResult GetCustomerAndInvoices(string id)
+        {
+            Customer customer = _context.Customers.Where(x => x.Id.ToString() == id).Include("Invoices").FirstOrDefault();
+            return View(customer);
         }
         public IActionResult Create()
         {
