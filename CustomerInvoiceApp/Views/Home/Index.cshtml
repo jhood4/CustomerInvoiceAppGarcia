@@ -4,7 +4,7 @@
 }
 
 <div class="container-fluid">
-    <h3>Customer Invoice Tracking</h3>
+    <h3>Customer & Invoice Tracking</h3>
     <section class="container">
         <div class="row">
             <div class="col-8 p-0 mt-3">
@@ -14,6 +14,9 @@
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#invoicesTab" type="button" role="tab" aria-controls="invoices" aria-selected="false">Invoices</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="sales-tab" data-bs-toggle="tab" data-bs-target="#salesTab" type="button" role="tab" aria-controls="sales" aria-selected="false">Sales by Country</button>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
@@ -33,7 +36,6 @@
                                         </a>
                                     </div>
                                 </div>
-                                
                             </div>
                             <div class="card-body">
                                 @if(!Model.Customers.Any())
@@ -62,9 +64,6 @@
                                                     <td>@customer.Country</td>
                                                     <td>@customer.Email</td>
                                                     <td class="text-center">
-                                                        <a class="btn btn-sm btn-secondary" asp-controller="Customers" asp-action="GetCustomerAndInvoices" asp-route-id="@customer.Id">
-                                                            Invoices
-                                                        </a>
                                                         <a class="btn btn-sm btn-info" asp-controller="Customers" asp-action="Edit" asp-route-id="@customer.Id">
                                                             Edit
                                                         </a>
@@ -88,7 +87,7 @@
                                         <h4 class="card-title mb-0">Invoices</h4>
                                     </div>
                                     <div class="col-9 text-end">
-                                        <a class="btn btn-primary" asp-controller="Invoices" asp-action="Create">
+                                        <a class="btn btn-primary" asp-controller="Invoice" asp-action="Create">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
                                               <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                                               <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
@@ -96,21 +95,21 @@
                                         </a>
                                     </div>
                                 </div>
-                                
                             </div>
                             <div class="card-body">
                                 @if(!Model.Invoices.Any())
                                 {
-                                    <p class="mb-0">There are currently no invoice records. Use the add button above to add a invoice.</p>
+                                    <p class="mb-1">There are currently no  invoice records. Use the add button above to add an Invoice Record.</p>
                                 } else
                                 {
                                     <table class="table table-striped">
                                         <thead>
                                             <tr>
                                                 <th>Id</th>
-                                                <th>Customer Id</th>
+                                                <th>CustomerId</th>
                                                 <th>Amount</th>
-                                                <th>Invoice Date</th>
+                                                <th>InvoiceDate</th>
+                                                <th>Country</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -122,11 +121,12 @@
                                                     <td>@invoice.CustomerId</td>
                                                     <td>@invoice.Amount</td>
                                                     <td>@invoice.InvoiceDate</td>
+                                                    <td>@invoice.Customers.Country</td>
                                                     <td class="text-center">
-                                                        <a class="btn btn-sm btn-info" asp-controller="Invoices" asp-action="Edit" asp-route-id="@invoice.Id">
+                                                        <a class="btn btn-sm btn-info" asp-controller="Invoice" asp-action="Edit" asp-route-id="@invoice.Id">
                                                             Edit
                                                         </a>
-                                                        <a class="btn btn-sm btn-danger" asp-controller="Invoices" asp-action="Delete" asp-route-id="@invoice.Id">
+                                                        <a class="btn btn-sm btn-danger" asp-controller="Invoice" asp-action="Delete" asp-route-id="@invoice.Id">
                                                             Delete
                                                         </a>
                                                     </td>
@@ -138,9 +138,87 @@
                             </div>
                         </div>
                     </div>
+                     <div class="tab-pane fade" id="salesTab" role="tabpanel" aria-labelledby="sales-tab">
+                        <div class="card mt-2">
+                            <div class="card-header">
+                                <div class="row m-0 p-0">
+                                    <div class="col-12">
+                                        <h4 class="card-title mb-0">Sales by Country</h4>
+                                    </div>
+                                    @*<div class="col-9 text-end">
+                                        <a class="btn btn-primary" asp-controller="Invoice" asp-action="Create">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
+                                              <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                              <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                                            </svg>
+                                        </a>
+                                    </div>*@
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class='col-4'>
+                                    <div class="card-body">
+                                        @if(!Model.SalesByCountry.Any())
+                                        {
+                                            <p class="mb-1">There are currently no sales.</p>
+                                        } else
+                                        {
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Country</th>
+                                                        <th>Total Sales</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach(var sales in Model.SalesByCountry)
+                                                    {
+                                                        <tr>
+                                                            <td>@sales.Country</td>
+                                                            <td>$@sales.Amount</td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="col-6 pb-3">
+                                   <canvas id="myChart" class="text-end" width="40" height="400"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 </div>
 
+@section Scripts {
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js" integrity="sha512-tMabqarPtykgDtdtSqCL3uLVM0gS1ZkUAVhRFu1vSEFgvB73niFQWJuvviDyBGBH22Lcau4rHB5p2K2T0Xvr6Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+     <script type="text/javascript">
+         const ctx = document.getElementById('myChart');
+         let labels = @Html.Raw(Json.Serialize(Model.Labels));
+         let countries = @Html.Raw(Json.Serialize(Model.Values));
+        const myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Sales by Country',
+                    data: countries,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                }]
+            },
+            borderWidth: 1
+         });
+     </script>
+}

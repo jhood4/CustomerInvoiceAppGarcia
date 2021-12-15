@@ -17,10 +17,23 @@ namespace CustomerInvoiceApp.Controllers
 
         public IActionResult Index()
         {
+            var SalesList = _context.Invoices.GroupBy(x => x.Customers.Country).Select(i => new Sales
+            {
+                Country = i.Key,
+                Amount = i.Sum(t => t.Amount)
+            }).ToList();
+
+            List<Sales> sales = SalesList;
+            List<string> labels = sales.Select(x => x.Country).ToList();
+            List<decimal> values = sales.Select(x => x.Amount).ToList();
+
             IndexVM vm = new IndexVM
             {
                 Customers = _context.Customers.ToList(),
-                Invoices = _context.Invoices.ToList()
+                Invoices = _context.Invoices.ToList(),
+                SalesByCountry = sales,
+                Labels = labels,
+                Values = values
             };
             return View(vm);
         }
