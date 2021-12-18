@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "c380d159-91d3-4274-b185-2d7b47ac15c4": {
+      "ProjectGuid": "c380d159-91d3-4274-b185-2d7b47ac15c4",
+      "DisplayName": "CustomerInvoiceApp",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

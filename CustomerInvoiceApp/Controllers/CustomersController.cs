@@ -1,6 +1,5 @@
 ﻿using CustomerInvoiceApp.Data;
 using CustomerInvoiceApp.Models;
-using CustomerInvoiceApp.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

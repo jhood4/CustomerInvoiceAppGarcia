@@ -202,7 +202,7 @@
          let labels = @Html.Raw(Json.Serialize(Model.Labels));
          let countries = @Html.Raw(Json.Serialize(Model.Values));
         const myChart = new Chart(ctx, {
-            type: 'doughnut',
+            type: 'pie',
             data: {
                 labels: labels,
                 datasets: [{
